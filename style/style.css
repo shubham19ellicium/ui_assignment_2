@@ -199,6 +199,7 @@ body{
 
 .selection-block.active{
     border: 2px solid blue;
+    background-color: hsl(217, 100%, 97%);
 }
 
 .selection-image img{
@@ -372,6 +373,11 @@ body{
 
 .add-on-check-info-block p{
     font-size: 14px;
+    color: #6a6666;
+}
+
+.add-on-check-info-block h5{
+    color: hsl(213, 96%, 18%);
 }
 
 .add-on-price-info{
@@ -386,6 +392,11 @@ body{
     cursor: pointer;
     border: 1.3px solid rgb(214, 214, 214);
     border-radius: 4px;
+}
+
+.add-on-box:hover{
+    border: 1.3px solid hsl(243, 100%, 62%);
+    /* background-color: hsl(217, 100%, 97%); */
 }
 
 .add-on-box.active{
@@ -491,6 +502,11 @@ body{
 
 .thank-you-text-block{
     margin: 16px;
+}
+
+.addon-price{
+    font-size: 14px;
+    color: blue;
 }
 
 @media screen and (max-width: 576px) and (min-width: 300px) {
