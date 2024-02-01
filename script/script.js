@@ -39,22 +39,32 @@ PERSONAL_BLOCK.classList.add("active")
 window.onbeforeunload = function (e) {
     sessionStorage.clear()
 };
-
-document.getElementById('personal-info-contact').addEventListener('input', function (event) {
-    var inputNumberError = document.getElementById("error-number")
-    inputNumberError.innerHTML = "Special character not allowed"
-    setTimeout(function() {
-        inputNumberError.innerHTML = ""
-    }, 1500);
+var personalNumberChange = document.getElementById('personal-info-contact')
+var personalNameChange = document.getElementById('personal-info-name')
+personalNumberChange.addEventListener('input', function (event) {
+    var regex = /\D/g
+    if (regex.test(this.value)){
+        var inputNumberError = document.getElementById("error-number")
+        inputNumberError.innerHTML = "Special character / character not allowed"
+        setTimeout(function() {
+            inputNumberError.innerHTML = ""
+        }, 2000);
+    }
     this.value = this.value.replace(/\D/g, '');
+    
 });
 
-document.getElementById('personal-info-name').addEventListener('input', function (event) {
-    var inputNameError = document.getElementById("error-name")
-    inputNameError.innerHTML = "Special character not allowed"
-    setTimeout(function() {
-        inputNameError.innerHTML = ""
-    }, 1500);
+personalNameChange.addEventListener('input', function (event) {
+    var regex = /[^\w\s]/gi
+
+    if (regex.test(this.value)) {
+        var inputNameError = document.getElementById("error-name")
+        inputNameError.innerHTML = "Special character not allowed"
+        setTimeout(function() {
+            inputNameError.innerHTML = ""
+        }, 2000);    
+    }
+
     this.value = this.value.replace(/[^\w\s]/gi, '');
 });
 
@@ -304,13 +314,11 @@ function emailValidation(params) {
 }
 
 function numberValidation(params) {
-    // if ( typeof(params) === Number) {
-        if (params.match(/\d/g).length===10)
-        {
-            return (true)
-        }
-            return (false)
-    // }
+    if (params.match(/\d/g).length===10)
+    {
+        return (true)
+    }
+        return (false)
 }
 
 function selectPackage(params) {

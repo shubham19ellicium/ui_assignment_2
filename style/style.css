@@ -57,6 +57,7 @@ body{
     justify-content: center;
     align-items: center;
     margin: 8px;
+    cursor: pointer;
 }
 
 .step-circle.active{
