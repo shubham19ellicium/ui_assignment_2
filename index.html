@@ -12,7 +12,7 @@
         <div class="left-block">
             <div class="steps-container">
                 <div class="step-block">
-                    <div class="step-circle" id="step-circle-1-id">
+                    <div class="step-circle" onclick="manageClick(1)" id="step-circle-1-id">
                         <span>1</span>
                     </div>
                     <div class="step-title-block">
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="step-block">
-                    <div class="step-circle" id="step-circle-2-id" >
+                    <div class="step-circle" onclick="manageClick(2)" id="step-circle-2-id" >
                         <span>2</span>
                     </div>
                     <div class="step-title-block">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="step-block">
-                    <div class="step-circle" id="step-circle-3-id">
+                    <div class="step-circle" onclick="manageClick(3)" id="step-circle-3-id">
                         <span>3</span>
                     </div>
                     <div class="step-title-block">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="step-block">
-                    <div class="step-circle" id="step-circle-4-id" >
+                    <div class="step-circle" onclick="manageClick(4)" id="step-circle-4-id" >
                         <span>4</span>
                     </div>
                     <div class="step-title-block">
@@ -70,7 +70,7 @@
                                         </div>
                                     </div>
                                     <div class="form-info-input-block">
-                                        <input type="text" class="info-input-box" placeholder="e.g. Stephen King" id="personal-info-name" maxlength="25">
+                                        <input type="text" onkeyup="seeEntry()" class="info-input-box" placeholder="e.g. Stephen King" id="personal-info-name" maxlength="25">
                                     </div>
                                 </div>
                                 <div class="form-info-block">
@@ -83,7 +83,7 @@
                                         </div>
                                     </div>
                                     <div class="form-info-input-block">
-                                        <input type="text" class="info-input-box" placeholder="e.g. Stephen@gmail.com" id="personal-info-email" maxlength="25">
+                                        <input type="text" onkeyup="seeEntry()" class="info-input-box" placeholder="e.g. Stephen@gmail.com" id="personal-info-email" maxlength="25">
                                     </div>
                                 </div>
                                 <div class="form-info-block">
@@ -96,7 +96,7 @@
                                         </div>
                                     </div>
                                     <div class="form-info-input-block">
-                                        <input type="tel" class="info-input-box" placeholder="e.g. 9090909090" id="personal-info-contact" maxlength="10">
+                                        <input type="tel" onkeyup="seeEntry()" class="info-input-box" placeholder="e.g. 9090909090" id="personal-info-contact" maxlength="10">
                                     </div>
                                 </div>
                             </div>

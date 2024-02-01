@@ -40,6 +40,29 @@ window.onbeforeunload = function (e) {
     sessionStorage.clear()
 };
 
+document.getElementById('personal-info-contact').addEventListener('input', function (event) {
+    var inputNumberError = document.getElementById("error-number")
+    inputNumberError.innerHTML = "Special character not allowed"
+    setTimeout(function() {
+        inputNumberError.innerHTML = ""
+    }, 1500);
+    this.value = this.value.replace(/\D/g, '');
+});
+
+document.getElementById('personal-info-name').addEventListener('input', function (event) {
+    var inputNameError = document.getElementById("error-name")
+    inputNameError.innerHTML = "Special character not allowed"
+    setTimeout(function() {
+        inputNameError.innerHTML = ""
+    }, 1500);
+    this.value = this.value.replace(/[^\w\s]/gi, '');
+});
+
+function hasSpecialCharacters(inputString) {
+    var specialCharacterRegex = /[^\w\s]/gi;
+    return specialCharacterRegex.test(inputString);
+}
+
 // var createCircle = document.querySelector('step-circle[data-target="'+1+'"]')
 
 var circle1 = document.getElementById("step-circle-1-id")
@@ -79,7 +102,10 @@ function renderContent(params) {
         circle4.classList.remove("active")
 
     }else if (params === 2) {
-
+        var stepNumber = sessionStorage.getItem("step")
+        if (stepNumber < 2) {
+            sessionStorage.setItem("step",2)
+        }
         circle2.classList.add("active")
         circle1.classList.remove("active")
         circle3.classList.remove("active")
@@ -112,7 +138,10 @@ function renderContent(params) {
         }
         
     }else if (params === 3) {
-
+        var stepNumber = sessionStorage.getItem("step")
+        if (stepNumber < 3) {
+            sessionStorage.setItem("step",3)
+        }
         circle3.classList.add("active")
         circle2.classList.remove("active")
         circle1.classList.remove("active")
@@ -140,7 +169,11 @@ function renderContent(params) {
 
 
     }else if (params === 4) {
-
+        var stepNumber = sessionStorage.getItem("step")
+        if (stepNumber < 4) {
+            sessionStorage.setItem("step",4)
+        }
+        sessionStorage.setItem("step",4)
         circle4.classList.add("active")
         circle3.classList.remove("active")
         circle2.classList.remove("active")
@@ -244,6 +277,24 @@ function renderContent(params) {
     }
 }
 
+function manageClick(param){
+    var stepNumber = sessionStorage.getItem("step")
+    if (stepNumber == null) {
+        sessionStorage.setItem("step",1)
+    }else if(stepNumber >= param){
+        // sessionStorage.setItem("step",param)
+        if (param === 1) {
+            renderContent(1)
+        }else if(param === 2){
+            renderContent(2)
+        }else if(param === 3){
+            renderContent(3)
+        }else if(param === 4){
+            renderContent(4)
+        }
+    }
+}
+
 function emailValidation(params) {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(params))
     {
@@ -253,11 +304,13 @@ function emailValidation(params) {
 }
 
 function numberValidation(params) {
-    if (params.match(/\d/g).length===10)
-    {
-        return (true)
-    }
-        return (false)
+    // if ( typeof(params) === Number) {
+        if (params.match(/\d/g).length===10)
+        {
+            return (true)
+        }
+            return (false)
+    // }
 }
 
 function selectPackage(params) {
@@ -424,6 +477,42 @@ function updateOnClickAddOn(params) {
     // }
 }
 
+// function seeChanges(param) {
+//     var inputName = document.getElementById("personal-info-name")
+//     var inputEmail = document.getElementById("personal-info-email")
+//     var inputContact = document.getElementById("personal-info-contact")
+
+//     if (param === 1 && inputName.value != 0) {
+        
+//     }
+// }
+
+function seeEntry(){
+    var inputName = document.getElementById("personal-info-name")
+    var inputEmail = document.getElementById("personal-info-email")
+    var inputContact = document.getElementById("personal-info-contact")
+
+    var inputNameError = document.getElementById("error-name")
+    var inputEmailError = document.getElementById("error-email")
+    var inputNumberError = document.getElementById("error-number")
+
+    if(inputName.value.length > 0 ){
+        inputName.classList.remove("error")
+        inputNameError.innerHTML = ""
+    }
+
+    if(inputEmail.value.length > 0 ){
+        console.log("In here ");
+        inputEmail.classList.remove("error")
+        inputEmailError.innerHTML = ""
+    }
+
+    if(inputContact.value.length > 0 ){
+        inputContact.classList.remove("error")
+        inputNumberError.innerHTML = ""
+    }
+}
+
 function setAddOnPrice(period,service) {
     if (period == "Monthly") {
         sessionStorage.setItem(service+"-price",MONTHLY_PRICE[`${service}`])
@@ -443,24 +532,37 @@ function submitPersonalInfo() {
 
     if (inputName.value.length === 0) {
         inputNameError.innerHTML = "Feild required"
+        inputName.classList.add("error")
     }else{
         inputNameError.innerHTML = ""
+        inputName.classList.remove("error")
+
     }
 
     if (inputEmail.value.length === 0) {
         inputEmailError.innerHTML = "Feild required"
+        inputEmail.classList.add("error")
     }else if(!emailValidation(inputEmail.value)){
         inputEmailError.innerHTML = "Enter valid email"
+        inputEmail.classList.add("error")
     }else{
         inputEmailError.innerHTML = ""
+        inputEmail.classList.remove("error")
+
     }
 
     if (inputContact.value.length === 0) {
         inputNumberError.innerHTML = "Feild required"
+        inputContact.classList.add("error")
+
     }else if(!numberValidation(inputContact.value)){
-        inputNumberError.innerHTML = "Enter valid email"
+        inputNumberError.innerHTML = "Enter valid number"
+        inputContact.classList.add("error")
+
     }else{
         inputNumberError.innerHTML = ""
+        inputContact.classList.remove("error")
+
     }
 
     if (inputName.value.length > 0 && inputEmail.value.length > 0 && emailValidation(inputEmail.value) && inputContact.value.length > 0 && numberValidation(inputContact.value)) {
